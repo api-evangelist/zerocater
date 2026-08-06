@@ -1,0 +1,99 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+summary: >-
+  Standards conformance for the Zerocater v3 API, assessed only against surfaces that
+  were actually probed. Zerocater makes no public conformance or compliance claim of
+  any kind — there is no trust center, no certifications page and no compliance
+  statement on zerocater.com — so no `Compliance` pointer is emitted for this provider.
+standards:
+- id: rfc6570-uri-templates
+  conforms: true
+  evidence: >-
+    The root index at /api/v3 publishes 23 RFC 6570 URI templates, including level-3
+    query expansion (meals{?prev,next,current,location,count}).
+- id: rfc7235-http-authentication
+  conforms: true
+  evidence: 'Returns 401 with a WWW-Authenticate: Token challenge.'
+- id: rfc7231-options-allow
+  conforms: true
+  evidence: >-
+    Answers OPTIONS with an accurate Allow header on every routed endpoint, plus DRF
+    metadata (name, renders, parses) as a JSON body.
+- id: rfc6797-hsts
+  conforms: true
+  evidence: 'Strict-Transport-Security: max-age=31536000 on app.zerocater.com responses.'
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document exists at any probed location on zerocater.com,
+    app.zerocater.com or api.zerocater.com.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published.
+- id: graphql
+  conforms: false
+  evidence: No /graphql endpoint on any host.
+- id: mcp
+  conforms: false
+  evidence: No MCP server is published or advertised.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json both returned 404 on
+    zerocater.com and app.zerocater.com.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the flat Django REST Framework {"detail": "..."} envelope, not
+    application/problem+json.
+- id: oauth2
+  conforms: false
+  evidence: Token authentication only; no OAuth 2.0 flows, endpoints or scopes.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returned 404.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on both hosts.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returned 404.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation headers observed; no deprecation policy published.
+- id: llmstxt
+  conforms: true
+  evidence: >-
+    https://zerocater.com/llms.txt returns a well-formed llms.txt (H1, blockquote
+    summary, sectioned link lists). It describes the marketing site, not the API.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses are plain JSON, not the JSON:API media type — despite the ZeroCater
+    GitHub organization carrying forks of django-rest-framework-json-api and a
+    jsonapi-mock-server, which relate to internal microservices, not this public v3 API.
+compliance_program:
+  published: false
+  trust_center: null
+  certifications: []
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA, GDPR or other certification is claimed on any
+    Zerocater page probed. Absence of a claim is recorded, not interpreted.
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://app.zerocater.com/api/v3
+    http_status: 200
+  - url: https://zerocater.com/llms.txt
+    http_status: 200
+  - url: https://zerocater.com/.well-known/security.txt
+    http_status: 404
+  - url: https://app.zerocater.com/.well-known/openid-configuration
+    http_status: 404
+  - url: https://app.zerocater.com/.well-known/agent-card.json
+    http_status: 404
+  credentials_used: none

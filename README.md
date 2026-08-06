@@ -42,5 +42,27 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Zerocater is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/zerocater_stock/
+Zerocater is a corporate catering and workplace food company that builds and manages office food
+programs for businesses, connecting employers to a curated network of local restaurants, caterers and
+chefs. It covers daily corporate catering, chef-led on-site corporate cafeterias, and full-service event
+catering, and its CaterAi product uses AI to assemble menus from a team's preferences, dietary
+restrictions and order history. Zerocater states it serves 500+ companies across 12+ U.S. metros.
+
+## API surface
+
+Zerocater publishes **no** OpenAPI, no developer portal and no API documentation. It does run an
+undocumented Django REST Framework JSON API behind its ordering application, and that API serves an
+anonymously reachable RFC 6570 URI-template hypermedia index at its root:
+
+- **API root (probed, 200):** https://app.zerocater.com/api/v3 — 23 resource link relations
+- **Captured verbatim:** [`discovery/zerocater-api-v3-root.json`](discovery/zerocater-api-v3-root.json)
+- **Endpoint inventory + evidence:** [`discovery/zerocater-api-v3-discovery.yml`](discovery/zerocater-api-v3-discovery.yml)
+
+No OpenAPI has been derived from that index and no fabricated specification for Zerocater exists in this
+repository. Every artifact here records the URL it was fetched from and the HTTP status it returned.
+
+- Zerocater: https://zerocater.com/
+- Ordering application: https://app.zerocater.com/
+- GitHub organization: https://github.com/ZeroCater
+- First-party Python client: https://github.com/ZeroCater/PyZeroCater (`pip install zerocater`)
+- Secondary-market listing: https://forgeglobal.com/zerocater_stock/

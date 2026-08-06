@@ -1,0 +1,230 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+title: Zerocater API v3 hypermedia root index (Django REST Framework)
+summary: >-
+  The only machine-readable, anonymously reachable API contract found on any Zerocater
+  host. It is the root index of the Django REST Framework JSON API that backs the
+  Zerocater ordering application at app.zerocater.com, returning 23 RFC 6570 URI
+  templates for the application's resources. Zerocater publishes NO OpenAPI, no
+  developer portal, no API reference and no public API documentation for this surface
+  — the API is undocumented. Everything recorded below was observed live with
+  anonymous, unauthenticated requests (no credentials were used and no access control
+  was defeated); HTTP methods come from the servers' own `Allow` response headers and
+  DRF `OPTIONS` metadata, not from inference. NO OpenAPI has been derived from this
+  document and no fabricated specification for Zerocater exists in this repository.
+host: app.zerocater.com
+base_url: https://app.zerocater.com/api/v3
+verbatim_file: zerocater-api-v3-root.json
+platform:
+  framework: Django REST Framework
+  hosting: Heroku (Server header)
+  media_types_rendered: [application/json, text/html]
+  media_types_parsed:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+  hypermedia_style: RFC 6570 URI templates in a flat root index (link-relation-keyed)
+authentication:
+  scheme: Token
+  header: 'Authorization: Token <token>'
+  challenge: 'WWW-Authenticate: Token'
+  evidence: authentication/zerocater-authentication.yml
+counts:
+  templates_published: 23
+  probed: 23
+  responded_2xx_anonymous: 4
+  responded_401_anonymous: 13
+  responded_404: 5
+  responded_5xx: 1
+# Every row below was probed anonymously on 2026-08-05.
+# `allow` is verbatim from the response `Allow` header — it is the server's own
+# statement of supported methods, not an assumption. `anonymous_status` is the code
+# returned to an unauthenticated OPTIONS request against the substituted template.
+endpoints:
+- rel: root_url
+  template: https://app.zerocater.com/api/v3
+  path: /api/v3
+  allow: [GET, HEAD, OPTIONS]
+  drf_name: Api Root
+  anonymous_status: 200
+  auth_required: false
+- rel: company_url
+  template: https://app.zerocater.com/api/v3/companies/{short_mangled_id}
+  path: /api/v3/companies/{short_mangled_id}
+  allow: [GET, HEAD, OPTIONS]
+  drf_name: Company
+  anonymous_status: 200
+  auth_required: false
+  note: >-
+    OPTIONS returns DRF metadata anonymously; GET with an unknown identifier returns
+    404 {"detail":"Not found."} rather than 401, so company reads are not token-gated
+    at the framework level.
+- rel: company_people_url
+  template: https://app.zerocater.com/api/v3/companies/{short_mangled_id}/people
+  path: /api/v3/companies/{short_mangled_id}/people
+  allow: [GET, HEAD, OPTIONS]
+  anonymous_status: 404
+- rel: company_person_url
+  template: https://app.zerocater.com/api/v3/companies/{short_mangled_id}/people/{id}
+  path: /api/v3/companies/{short_mangled_id}/people/{id}
+  allow: [GET, PUT, DELETE, HEAD, OPTIONS]
+  anonymous_status: 404
+- rel: meals_url
+  template: https://app.zerocater.com/api/v3/companies/{short_mangled_id}/meals{?prev,next,current,location,count}
+  path: /api/v3/companies/{short_mangled_id}/meals
+  allow: [GET, HEAD, OPTIONS]
+  drf_name: Meal List
+  anonymous_status: 200
+  auth_required: false
+  query_parameters: [prev, next, current, location, count]
+- rel: meal_url
+  template: https://app.zerocater.com/api/v3/meals/{meal_id}
+  path: /api/v3/meals/{meal_id}
+  allow: [GET, HEAD, OPTIONS]
+  drf_name: Meal
+  anonymous_status: 200
+  auth_required: false
+- rel: ratings_url
+  template: https://app.zerocater.com/api/v3/meals/{meal_id}/ratings
+  path: /api/v3/meals/{meal_id}/ratings
+  allow: [GET, POST, PUT, HEAD, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: vendor_ratings_url
+  template: https://app.zerocater.com/api/v3/meals/{meal_id}/vendor_ratings
+  path: /api/v3/meals/{meal_id}/vendor_ratings
+  allow: []
+  anonymous_status: 500
+  note: >-
+    Returned HTTP 500 with no Allow header to an anonymous OPTIONS request on
+    2026-08-05 — recorded as observed, not diagnosed.
+- rel: current_user_url
+  template: https://app.zerocater.com/api/v3/user
+  path: /api/v3/user
+  allow: [GET, HEAD, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: company_payment_url
+  template: https://app.zerocater.com/api/v3/payment/company/{short_mangled_id}
+  path: /api/v3/payment/company/{short_mangled_id}
+  allow: [GET, POST, HEAD, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: payment_auth_plaid
+  template: https://app.zerocater.com/api/v3/payment/company/{short_mangled_id}/auth_plaid
+  path: /api/v3/payment/company/{short_mangled_id}/auth_plaid
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+  note: Bank-account authorization via Plaid.
+- rel: payment_delete_url
+  template: https://app.zerocater.com/api/v3/payment/{id}
+  path: /api/v3/payment/{id}
+  allow: [DELETE, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: payment_verify_url
+  template: https://app.zerocater.com/api/v3/payment/{id}/verify
+  path: /api/v3/payment/{id}/verify
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: payment_make_default_url
+  template: https://app.zerocater.com/api/v3/payment/{id}/make_default
+  path: /api/v3/payment/{id}/make_default
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: suggest
+  template: https://app.zerocater.com/api/v3/voting/suggestion{?company_id}
+  path: /api/v3/voting/suggestion
+  allow: [GET, POST, HEAD, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+  query_parameters: [company_id]
+- rel: vote
+  template: https://app.zerocater.com/api/v3/voting/vote
+  path: /api/v3/voting/vote
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: toggle_archive
+  template: https://app.zerocater.com/api/v3/voting/suggestion/{id}/toggle_archive
+  path: /api/v3/voting/suggestion/{id}/toggle_archive
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: comment
+  template: https://app.zerocater.com/api/v3/voting/comment
+  path: /api/v3/voting/comment
+  allow: [POST, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: check_existing_user
+  template: https://app.zerocater.com/api/v3/check_existing_user
+  path: /api/v3/check_existing_user
+  allow: [GET, HEAD, OPTIONS]
+  anonymous_status: 401
+  auth_required: true
+- rel: token_url
+  template: https://app.zerocater.com/api/v3/login
+  path: /api/v3/login
+  allow: []
+  anonymous_status: 404
+  note: >-
+    Advertised by the root index but returned an HTML 404 from the Django application
+    to anonymous GET and OPTIONS on 2026-08-05 — the published link relation and the
+    deployed route no longer agree. Zerocater's own PyZeroCater client obtains a token
+    by issuing a HTTP-Basic-credentialed GET against this relation.
+- rel: forgot_password
+  template: https://app.zerocater.com/api/v3/password/forgot
+  path: /api/v3/password/forgot
+  allow: []
+  anonymous_status: 404
+  note: Advertised by the root index; returned an HTML 404 when probed.
+- rel: reset_password
+  template: https://app.zerocater.com/api/v3/password/reset
+  path: /api/v3/password/reset
+  allow: []
+  anonymous_status: 404
+  note: Advertised by the root index; returned an HTML 404 when probed.
+- rel: register
+  template: https://app.zerocater.com/api/v3/register
+  path: /api/v3/register
+  allow: []
+  anonymous_status: 404
+  note: Advertised by the root index; returned an HTML 404 when probed.
+other_surfaces_probed:
+- url: https://zerocater.com/wp-json/
+  http_status: 401
+  finding: >-
+    The zerocater.com marketing site runs WordPress, but its REST API is closed —
+    "Only authenticated users can access the REST API." No route index is readable.
+- url: https://zerocater.com/blog/feed/
+  http_status: 200
+  finding: Blog RSS feed is open (application/rss+xml).
+- url: https://api.zerocater.com/api/v3
+  http_status: 525
+  finding: >-
+    api.zerocater.com resolves through Cloudflare but the origin TLS handshake fails
+    (Cloudflare error 525) for every path probed. No content is reachable at this host.
+- url: https://zerocater.com/api/v3
+  http_status: 404
+  finding: >-
+    The legacy base URL hard-coded in Zerocater's own PyZeroCater client
+    (https://zerocater.com/api/v3) now returns the WordPress marketing 404 page. The
+    API moved to app.zerocater.com; the published client is stale.
+gaps:
+- No OpenAPI, Swagger, AsyncAPI, GraphQL or MCP surface exists on any Zerocater host.
+- No developer portal, API reference, getting-started guide or API changelog is published.
+- No documented rate limits, pagination contract, versioning policy or deprecation policy.
+- Four advertised link relations (login, register, password/forgot, password/reset) 404.
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://app.zerocater.com/api/v3
+  http_status: 200
+  content_type: application/json
+  bytes: 1740
+  method_evidence: Allow response headers + Django REST Framework OPTIONS metadata
+  credentials_used: none

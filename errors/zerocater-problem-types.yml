@@ -1,0 +1,81 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+format: drf-detail
+rfc9457: false
+summary: >-
+  Zerocater publishes no error reference. This catalog records only error envelopes
+  observed live from app.zerocater.com during anonymous probing on 2026-08-05. The API
+  uses the Django REST Framework default envelope — a flat JSON object with a single
+  `detail` string — not RFC 9457 problem+json. There is no error code, no type URI, no
+  machine-readable reason and no documentation link in any response body.
+envelope:
+  media_type: application/json
+  shape: '{"detail": "<human-readable message>"}'
+  fields:
+  - name: detail
+    type: string
+    description: Human-readable message. The only field present in every observed error.
+  missing:
+  - machine-readable error code
+  - type URI
+  - RFC 9457 title/status/instance members
+  - field-level validation pointers
+  - documentation or remediation link
+problems:
+- status: 401
+  title: Authentication credentials were not provided
+  detail: Authentication credentials were not provided.
+  media_type: application/json
+  headers:
+    WWW-Authenticate: Token
+  remediation: 'Send the header `Authorization: Token <token>`.'
+  observed_at: https://app.zerocater.com/api/v3/user
+- status: 404
+  title: Not found
+  detail: Not found.
+  media_type: application/json
+  remediation: >-
+    Returned for an unknown resource identifier. Note that this API returns 404 rather
+    than 401 for non-token-gated resources, so a 404 does not by itself distinguish
+    "does not exist" from "not visible to you".
+  observed_at: https://app.zerocater.com/api/v3/companies/{short_mangled_id}
+- status: 404
+  title: Application HTML 404
+  media_type: text/html
+  detail: null
+  remediation: >-
+    Unrouted paths under /api/v3 fall through to the Django application's HTML 404 page
+    instead of a JSON error, so a client parsing JSON will fail on the response body
+    rather than on the status code. Observed for the login, register, password/forgot
+    and password/reset relations advertised by the API root index.
+  observed_at: https://app.zerocater.com/api/v3/login
+- status: 500
+  title: Server error
+  media_type: text/html
+  detail: null
+  remediation: >-
+    Observed once, from an anonymous OPTIONS request to the vendor_ratings relation.
+    Recorded as observed, not diagnosed.
+  observed_at: https://app.zerocater.com/api/v3/meals/{meal_id}/vendor_ratings
+gaps:
+- No published error-code registry or error reference page.
+- Two distinct content types (application/json and text/html) are used for 404.
+- No retry, backoff or rate-limit error semantics are documented or were observed.
+related:
+  discovery: discovery/zerocater-api-v3-discovery.yml
+  authentication: authentication/zerocater-authentication.yml
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://app.zerocater.com/api/v3/user
+    http_status: 401
+  - url: https://app.zerocater.com/api/v3/companies/probe
+    http_status: 404
+  - url: https://app.zerocater.com/api/v3/meals/1
+    http_status: 404
+  - url: https://app.zerocater.com/api/v3/login
+    http_status: 404
+  - url: https://app.zerocater.com/api/v3/meals/1/vendor_ratings
+    http_status: 500
+  credentials_used: none

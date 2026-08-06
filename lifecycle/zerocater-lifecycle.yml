@@ -1,0 +1,64 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+summary: >-
+  Zerocater publishes no API lifecycle commitments of any kind. There is no versioning
+  policy, no deprecation policy, no API changelog, no status page and no SLA. The only
+  lifecycle fact that can be stated is the version segment in the URL. No `StatusPage`
+  and no `Deprecation` pointer is emitted, because neither exists.
+versioning:
+  scheme: uri-path
+  current: v3
+  base: https://app.zerocater.com/api/v3
+  policy_url: null
+  policy_published: false
+  note: >-
+    v1 and v2 are not reachable and are not documented. The version predecessor is
+    visible only indirectly: Zerocater's own 2015 Python client targets the same v3
+    path on the retired zerocater.com host.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No RFC 8594 Sunset or Deprecation header was observed on any response, and no
+    deprecation policy page exists.
+host_migration_observed:
+  from: https://zerocater.com/api/v3
+  to: https://app.zerocater.com/api/v3
+  from_status: 404
+  to_status: 200
+  announced: false
+  note: >-
+    The API base URL moved from zerocater.com to app.zerocater.com at some point after
+    2015. The old base now serves the WordPress marketing 404 page rather than a
+    redirect or a Sunset-signalled deprecation, and Zerocater's own published client
+    still points at it. This is an unannounced breaking change to the only client
+    library Zerocater ships.
+status_page:
+  url: null
+  found: false
+  probed:
+  - url: https://status.zerocater.com/
+    result: NXDOMAIN
+sla:
+  url: null
+  published: false
+changelog:
+  url: null
+  published: false
+  note: >-
+    Zerocater runs a marketing blog and a newsroom, but neither is a dated API
+    changelog and neither carries API release notes.
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://app.zerocater.com/api/v3
+    http_status: 200
+  - url: https://zerocater.com/api/v3
+    http_status: 404
+  - url: https://api.zerocater.com/api/v3
+    http_status: 525
+  credentials_used: none

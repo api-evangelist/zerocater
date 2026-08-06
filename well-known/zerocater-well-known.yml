@@ -1,0 +1,60 @@
+generated: '2026-08-05'
+method: probed
+source: live probes of zerocater.com and app.zerocater.com
+summary: >-
+  Zerocater serves no /.well-known/ discovery documents on any host. Every path below
+  was probed anonymously on 2026-08-05 and every one missed. Recorded so the absence is
+  evidenced rather than assumed; no `WellKnown`, `SecurityTxt` or `AgentCard` pointer
+  is emitted for this provider because nothing was found.
+hosts:
+- host: https://zerocater.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+    note: HTML body (WordPress catch-all) — rejected, not an agent card.
+  - path: /.well-known/agent.json
+    status: 404
+    note: HTML body (WordPress catch-all) — rejected, not an agent card.
+- host: https://app.zerocater.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://api.zerocater.com
+  documents:
+  - path: /.well-known/*
+    status: 525
+    note: >-
+      Host resolves through Cloudflare but the origin TLS handshake fails for every
+      path; no /.well-known/ probe could complete.
+adjacent_root_documents_found:
+- path: /llms.txt
+  host: https://zerocater.com
+  status: 200
+  file: ../llms/zerocater-llms.txt
+  note: Provider-published; captured verbatim.
+- path: /robots.txt
+  host: https://zerocater.com
+  status: 200
+  note: >-
+    Disallows /wp-admin/, /404/, /forms/, /lp/ only. No AI/agent-specific user-agent
+    rules. Lists 23 sitemaps.
+- path: /sitemap.xml
+  host: https://zerocater.com
+  status: 200
+x-evidence:
+  fetched: '2026-08-05'
+  credentials_used: none

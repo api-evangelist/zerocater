@@ -1,0 +1,17 @@
+# Zerocater
+
+> Zerocater provides corporate catering and office food programs, helping companies build a better workplace through food. Our AI ordering product, CaterAi, recommends and manages catering based on a team's preferences and order history. We serve 12+ major U.S. metros.
+
+## Products & Solutions
+- [CaterAi](https://zerocater.com/cater-ai/): AI-powered catering ordering and recommendations.
+- [Corporate Catering](https://zerocater.com/solutions/corporate-catering/): Office catering and recurring food programs.
+- [Corporate Cafeterias](https://zerocater.com/solutions/corporate-cafeterias/): Managed on-site cafeteria programs.
+- [Event Catering](https://zerocater.com/solutions/corporate-event-catering/): Catering for corporate events and gatherings.
+
+## Company
+- [About](https://zerocater.com/about/): Who we are and how Zerocater works.
+- [Contact / Request a demo](https://zerocater.com/about/contact/): Get a quote for your office.
+
+## Resources
+- [Blog](https://zerocater.com/blog/): Catering guides, menus, and workplace food tips.
+- [Browse Catering Directory](https://zerocater.com/catering/): Catering options across the cities we serve.

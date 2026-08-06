@@ -1,23 +1,122 @@
 aid: zerocater
 name: Zerocater
-description: 'Zerocater is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Zerocater is a San Francisco-founded corporate catering and workplace
+  food company that builds and manages office food programs for businesses. It acts
+  as an intermediary between employers and a curated network of local restaurants,
+  caterers and chefs, covering daily corporate catering (buffet and individually boxed),
+  chef-led on-site corporate cafeterias with snack and barista programs, and full-service
+  event catering with on-site staffing. Its CaterAi product uses AI to recommend and
+  assemble menus from a team''s stated preferences, dietary restrictions and order
+  history, and to book on-site staff and event decor. Zerocater states it serves 500+
+  companies across 12+ major U.S. metros including the SF Bay Area, New York, Austin,
+  Boston, Los Angeles, Chicago, Washington DC, Seattle, Denver, Dallas, Atlanta, Philadelphia
+  and Phoenix. It runs a customer-facing ordering web application at app.zerocater.com
+  backed by an undocumented Django REST Framework token-authenticated JSON API (v3),
+  whose hypermedia root index is served anonymously, and it publishes a first-party
+  Python client library on PyPI.'
+image: https://zerocater.com/wp-content/uploads/2026/05/make-catering-effortless-with-cater-ai-social.jpg
 url: https://raw.githubusercontent.com/api-evangelist/zerocater/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
-apis: []
+- Food and Beverage
+- Catering
+- Corporate Services
+- Workplace
+- Food Delivery
+- Hospitality
+- Artificial Intelligence
+- Ordering
+- Marketplace
+apis:
+- aid: zerocater:zerocater-api-v3
+  name: Zerocater API v3
+  description: 'The internal-but-anonymously-discoverable JSON API behind the Zerocater
+    ordering application at app.zerocater.com. Built on Django REST Framework, it
+    serves an RFC 6570 URI-template hypermedia index at its root listing 23 resource
+    URLs covering companies, company people, meals, meal and vendor ratings, payment
+    methods (including Plaid bank authorization), menu voting/suggestions/comments,
+    and account operations. Reads are authenticated with an `Authorization: Token <token>`
+    header. Zerocater publishes no OpenAPI, no developer portal and no public API
+    documentation for this surface; the contract recorded here was probed live and
+    corroborated against Zerocater''s own open-source Python client.'
+  humanURL: https://github.com/ZeroCater/PyZeroCater
+  baseURL: https://app.zerocater.com/api/v3
+  tags:
+  - Catering
+  - Meals
+  - Ordering
+  - Payments
+  - Ratings
+  properties:
+  - type: APIDiscovery
+    url: discovery/zerocater-api-v3-discovery.yml
+  - type: Authentication
+    url: authentication/zerocater-authentication.yml
+  - type: ErrorCatalog
+    url: errors/zerocater-problem-types.yml
+  - type: Conventions
+    url: conventions/zerocater-conventions.yml
+  - type: SourceCode
+    url: https://github.com/ZeroCater/PyZeroCater
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/zerocater-domain-security.yml
 - type: Website
+  url: https://zerocater.com/
+- type: Blog
+  url: https://zerocater.com/blog/
+- type: BlogRSS
+  url: https://zerocater.com/blog/feed/
+- type: Support
+  url: https://zerocater.com/about/contact/
+- type: FAQ
+  url: https://zerocater.com/faq/
+- type: SignUp
+  url: https://app.zerocater.com/signup
+- type: Login
+  url: https://app.zerocater.com/login
+- type: TermsOfService
+  url: https://zerocater.com/terms/
+- type: PrivacyPolicy
+  url: https://zerocater.com/privacy/
+- type: GitHubOrganization
+  url: https://github.com/ZeroCater
+- type: LLMsTxt
+  url: llms/zerocater-llms.txt
+- type: Packages
+  url: packages/zerocater-packages.yml
+- type: SDKs
+  url: packages/zerocater-packages.yml
+- type: APIDiscovery
+  url: discovery/zerocater-api-v3-discovery.yml
+- type: Authentication
+  url: authentication/zerocater-authentication.yml
+- type: ErrorCatalog
+  url: errors/zerocater-problem-types.yml
+- type: Conventions
+  url: conventions/zerocater-conventions.yml
+- type: Conformance
+  url: conformance/zerocater-conformance.yml
+- type: Lifecycle
+  url: lifecycle/zerocater-lifecycle.yml
+- type: SecondaryMarket
   url: https://forgeglobal.com/zerocater_stock/
+- type: Wikipedia
+  url: https://en.wikipedia.org/wiki/Zerocater
+- type: LinkedIn
+  url: https://www.linkedin.com/company/zerocater
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v1

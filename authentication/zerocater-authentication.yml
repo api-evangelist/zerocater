@@ -1,0 +1,80 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+summary:
+  types: [http]
+  scheme: token
+  api_key_in: [header]
+  oauth2_flows: []
+  documented_by_provider: false
+note: >-
+  Zerocater publishes no authentication documentation and no OpenAPI, so this profile
+  was NOT derived from a specification. It was reconstructed from two real sources:
+  (1) the `WWW-Authenticate: Token` challenge and 401 bodies returned live by
+  app.zerocater.com to anonymous requests, and (2) Zerocater's own open-source Python
+  client, which sets `Authorization: Token <token>` on every request. Nothing here is
+  inferred beyond those two observations.
+schemes:
+- name: TokenAuth
+  type: http
+  scheme: token
+  in: header
+  parameter_name: Authorization
+  value_format: 'Token <token>'
+  bearer_format: null
+  description: >-
+    Django REST Framework TokenAuthentication. A per-user opaque token is presented on
+    the Authorization header. The server advertises the scheme in its 401 challenge.
+  sources:
+  - https://app.zerocater.com/api/v3/user
+  - https://github.com/ZeroCater/PyZeroCater/blob/master/zerocater/client.py
+token_acquisition:
+  advertised_relation: token_url
+  advertised_url: https://app.zerocater.com/api/v3/login
+  client_behavior: >-
+    PyZeroCater issues an HTTP-Basic-credentialed GET against the token_url relation
+    and reads `token` from the JSON body. It also accepts a pre-issued token directly.
+  observed_status: 404
+  observed_note: >-
+    The advertised login relation returned an HTML 404 to anonymous GET and OPTIONS on
+    2026-08-05, so the current token-issuance route could not be confirmed from the
+    outside. Recorded as observed; not diagnosed and not guessed at.
+  self_service_signup: https://app.zerocater.com/signup
+challenge_observed:
+  status: 401
+  www_authenticate: Token
+  content_type: application/json
+  body: '{"detail":"Authentication credentials were not provided."}'
+  url: https://app.zerocater.com/api/v3/user
+unauthenticated_surface:
+  note: >-
+    A subset of the API answers anonymous requests without a token. Company, meal-list
+    and meal resources return DRF metadata to OPTIONS and return 404 "Not found." —
+    not 401 — to GET with an unknown identifier, which places them outside the
+    token-required set. Stated as an observation of the deployed behavior only.
+  endpoints:
+  - /api/v3
+  - /api/v3/companies/{short_mangled_id}
+  - /api/v3/companies/{short_mangled_id}/meals
+  - /api/v3/meals/{meal_id}
+gaps:
+- No OAuth 2.0, OpenID Connect, mTLS or API-key surface exists.
+- No /.well-known/openid-configuration or /.well-known/oauth-authorization-server (both 404).
+- No published scope, permission or role model, so scopes/ is not applicable.
+- No published key-rotation, token-expiry or revocation policy.
+related:
+  discovery: discovery/zerocater-api-v3-discovery.yml
+  errors: errors/zerocater-problem-types.yml
+  conventions: conventions/zerocater-conventions.yml
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://app.zerocater.com/api/v3/user
+    http_status: 401
+  - url: https://app.zerocater.com/api/v3/login
+    http_status: 404
+  - url: https://app.zerocater.com/.well-known/openid-configuration
+    http_status: 404
+  - url: https://app.zerocater.com/.well-known/oauth-authorization-server
+    http_status: 404
+  credentials_used: none

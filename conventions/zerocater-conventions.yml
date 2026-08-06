@@ -1,0 +1,120 @@
+generated: '2026-08-05'
+method: probed
+source: https://app.zerocater.com/api/v3
+summary: >-
+  Cross-cutting request/response semantics for the Zerocater v3 API, reconstructed
+  entirely from live anonymous probes and from Zerocater's own open-source Python
+  client. Zerocater documents none of this publicly. Where a convention could not be
+  observed it is recorded as `unknown` rather than assumed — several of the most
+  important agent-facing contracts (idempotency, rate limiting, versioning policy)
+  genuinely do not exist on this API's public surface.
+authentication:
+  style: token-in-header
+  header: 'Authorization: Token <token>'
+  challenge: 'WWW-Authenticate: Token'
+  detail: authentication/zerocater-authentication.yml
+discovery:
+  style: hypermedia root index
+  root: https://app.zerocater.com/api/v3
+  link_relations: 23
+  template_spec: RFC 6570 URI Templates
+  detail: >-
+    The root document is a flat JSON object mapping link-relation names to URI
+    templates. Clients are expected to fetch the root and expand templates rather than
+    hard-code paths — Zerocater's own client does exactly this. There are no embedded
+    `_links` in resource representations, so hypermedia is confined to the root.
+  detail_artifact: discovery/zerocater-api-v3-discovery.yml
+content_negotiation:
+  renders: [application/json, text/html]
+  parses:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+  evidence: DRF OPTIONS metadata from https://app.zerocater.com/api/v3
+  note: >-
+    The browsable text/html renderer is enabled in production, so the same URL serves
+    an HTML console to a browser Accept header and JSON to an API client.
+pagination:
+  style: template-declared cursor/window parameters
+  applies_to: /api/v3/companies/{short_mangled_id}/meals
+  parameters: [prev, next, current, location, count]
+  source: 'URI template published in the root index: meals{?prev,next,current,location,count}'
+  response_fields: unknown
+  note: >-
+    The parameter names are published by the provider in the URI template, but their
+    semantics, value formats, defaults and maxima are undocumented, and the response
+    envelope could not be observed anonymously. Only the meals collection declares
+    them; no other collection publishes pagination parameters.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key header, parameter or retry-safety contract is documented by
+    Zerocater or present in any observed response. The API exposes unsafe operations
+    (POST vote, POST comment, POST payment verify, POST payment auth_plaid, DELETE
+    payment) with no published deduplication guarantee. No `Idempotency` pointer is
+    emitted for this provider.
+rate_limiting:
+  documented: false
+  headers_observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers were present on any observed
+    response, and no rate-limit policy is published.
+versioning:
+  scheme: uri-path
+  current: v3
+  path_segment: /api/v3
+  policy_published: false
+  detail: lifecycle/zerocater-lifecycle.yml
+request_tracing:
+  request_id_header: null
+  documented: false
+  note: No correlation or request-id header was observed on any response.
+error_envelope:
+  format: drf-detail
+  shape: '{"detail": "<message>"}'
+  rfc9457: false
+  detail: errors/zerocater-problem-types.yml
+resource_identifiers:
+- name: short_mangled_id
+  used_by: [companies, company people, company meals, company payment]
+  format: unknown
+  note: >-
+    Zerocater's own naming. Opaque per-company slug; the format is not documented and
+    was not probed against any real company identifier.
+- name: meal_id
+  used_by: [meals, ratings, vendor_ratings]
+  format: unknown
+- name: id
+  used_by: [company people, payment methods, voting suggestions]
+  format: unknown
+caching:
+  vary: Accept, Cookie
+  cache_control_observed: null
+  note: >-
+    Responses vary on Cookie as well as Accept — session state and token state coexist
+    on the same routes.
+security_headers_observed:
+  strict_transport_security: max-age=31536000
+  x_frame_options: SAMEORIGIN
+gaps:
+- No idempotency contract for unsafe operations.
+- No rate-limit signaling.
+- No request-id / correlation header.
+- No documented pagination semantics or response envelope.
+- No conditional-request (ETag / If-None-Match) support observed.
+related:
+  discovery: discovery/zerocater-api-v3-discovery.yml
+  authentication: authentication/zerocater-authentication.yml
+  errors: errors/zerocater-problem-types.yml
+  lifecycle: lifecycle/zerocater-lifecycle.yml
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://app.zerocater.com/api/v3
+    http_status: 200
+  - url: https://app.zerocater.com/api/v3/companies/probe
+    http_status: 404
+  - url: https://app.zerocater.com/api/v3/user
+    http_status: 401
+  credentials_used: none

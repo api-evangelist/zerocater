@@ -1,0 +1,70 @@
+generated: '2026-08-05'
+method: searched
+source: https://pypi.org/pypi/zerocater/json
+summary: >-
+  Zerocater publishes one first-party client library — a Python client for its v3 API,
+  released from its own GitHub organization under the tech@zerocater.com author address
+  and shipped to PyPI as `zerocater`. It has not been updated since 2015 and still
+  points at the retired https://zerocater.com/api/v3 base URL (the live API is now at
+  https://app.zerocater.com/api/v3), so it is catalogued as official but stale. The
+  Node client of the same name on npm is community-maintained, not Zerocater's.
+packages:
+- language: python
+  registry: pypi
+  name: zerocater
+  version: 0.0.1
+  url: https://pypi.org/project/zerocater/
+  repository: https://github.com/ZeroCater/PyZeroCater
+  install: pip install zerocater
+  license: MIT
+  official: true
+  evidence: >-
+    Published from the ZeroCater GitHub organization; PyPI metadata lists author
+    "ZeroCater" / tech@zerocater.com and home_page https://github.com/ZeroCater/PyZeroCater.
+  status: stale
+  note: >-
+    Last released 2015; hard-codes _base_url = 'https://zerocater.com/api/v3', which
+    now returns the WordPress marketing 404. Exercises get_user, get_companies,
+    get_company, get_company_meals, get_meal and get_user_meals over `Authorization:
+    Token <token>`.
+- language: javascript
+  registry: npm
+  name: zerocater
+  version: 1.1.2
+  url: https://www.npmjs.com/package/zerocater
+  repository: https://github.com/dfrankland/zerocater-node
+  install: npm install zerocater
+  license: MIT
+  official: false
+  evidence: >-
+    npm maintainer and author are Dylan Frankland (dylan@frankland.io), not Zerocater;
+    homepage is a personal repository outside the ZeroCater GitHub organization.
+  note: Community Node client exposing a ZeroCater class with getMeals().
+registries_probed:
+- registry: pypi
+  result: 1 first-party package (zerocater)
+- registry: npm
+  result: 1 community package (zerocater); no first-party @zerocater scope
+- registry: rubygems
+  result: none
+- registry: packagist
+  result: none
+- registry: nuget
+  result: none
+- registry: maven-central
+  result: none
+- registry: crates.io
+  result: none
+- registry: pkg.go.dev
+  result: none
+x-evidence:
+  fetched: '2026-08-05'
+  urls:
+  - url: https://pypi.org/pypi/zerocater/json
+    http_status: 200
+  - url: https://registry.npmjs.org/zerocater
+    http_status: 200
+  - url: https://api.github.com/orgs/ZeroCater/repos
+    http_status: 200
+  - url: https://raw.githubusercontent.com/ZeroCater/PyZeroCater/master/zerocater/client.py
+    http_status: 200
