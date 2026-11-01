@@ -64,27 +64,90 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Zerocater is a corporate catering and workplace food company that builds and manages office food
-programs for businesses, connecting employers to a curated network of local restaurants, caterers and
-chefs. It covers daily corporate catering, chef-led on-site corporate cafeterias, and full-service event
-catering, and its CaterAi product uses AI to assemble menus from a team's preferences, dietary
-restrictions and order history. Zerocater states it serves 500+ companies across 12+ U.S. metros.
+Zerocater is a San Francisco-founded corporate catering and workplace food company that builds and manages office food programs for businesses. It acts as an intermediary between employers and a curated network of local restaurants, caterers and chefs, covering daily corporate catering (buffet and individually boxed), chef-led on-site corporate cafeterias with snack and barista programs, and full-service event catering with on-site staffing. Its CaterAi product uses AI to recommend and assemble menus from a team's stated preferences, dietary restrictions and order history, and to book on-site staff and event decor. Zerocater states it serves 500+ companies across 12+ major U.S. metros including the SF Bay Area, New York, Austin, Boston, Los Angeles, Chicago, Washington DC, Seattle, Denver, Dallas, Atlanta, Philadelphia and Phoenix. It runs a customer-facing ordering web application at app.zerocater.com backed by an undocumented Django REST Framework token-authenticated JSON API (v3), whose hypermedia root index is served anonymously, and it publishes a first-party Python client library on PyPI.
 
-## API surface
+**Areas:** Company · Food and Beverage · Catering · Corporate Services · Workplace · Food Delivery · Hospitality · Artificial Intelligence · Ordering · Marketplace
 
-Zerocater publishes **no** OpenAPI, no developer portal and no API documentation. It does run an
-undocumented Django REST Framework JSON API behind its ordering application, and that API serves an
-anonymously reachable RFC 6570 URI-template hypermedia index at its root:
+## Zerocater on APIs.io
 
-- **API root (probed, 200):** https://app.zerocater.com/api/v3 — 23 resource link relations
-- **Captured verbatim:** [`discovery/zerocater-api-v3-root.json`](discovery/zerocater-api-v3-root.json)
-- **Endpoint inventory + evidence:** [`discovery/zerocater-api-v3-discovery.yml`](discovery/zerocater-api-v3-discovery.yml)
+Everything profiled for Zerocater is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/zerocater/](https://apis.io/providers/zerocater/)** — or go straight to one of the APIs or properties below.
 
-No OpenAPI has been derived from that index and no fabricated specification for Zerocater exists in this
-repository. Every artifact here records the URL it was fetched from and the HTTP status it returned.
+### APIs (1)
 
-- Zerocater: https://zerocater.com/
-- Ordering application: https://app.zerocater.com/
-- GitHub organization: https://github.com/ZeroCater
-- First-party Python client: https://github.com/ZeroCater/PyZeroCater (`pip install zerocater`)
-- Secondary-market listing: https://forgeglobal.com/zerocater_stock/
+- [Zerocater API v3](https://apis.io/apis/zerocater/zerocater-api-v3/) — The internal-but-anonymously-discoverable JSON API behind the Zerocater ordering application at app.zerocater.com. Built on Django REST Framework, it serves…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Zerocater Authentication](https://apis.io/security/zerocater/zerocater-authentication/)
+- [Zerocater Domain Security](https://apis.io/security/zerocater/zerocater-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://zerocater.com/)
+- [Sign up](https://app.zerocater.com/signup)
+- [Support](https://zerocater.com/about/contact/)
+- [Blog](https://zerocater.com/blog/)
+- [Terms of service](https://zerocater.com/terms/)
+- [Privacy policy](https://zerocater.com/privacy/)
+- [GitHub](https://github.com/ZeroCater)
+
+## API Evangelist rating
+
+**Kin Score 25.2** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 34.2 |
+
+**Agent readiness 5.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/zerocater/](https://apis.io/providers/zerocater/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Zerocater: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/zerocater/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
